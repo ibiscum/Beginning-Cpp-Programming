@@ -12,20 +12,3 @@ add_subdirectory(Chapter06)
 add_subdirectory(Chapter07)
 add_subdirectory(Chapter08)
 add_subdirectory(Chapter09)
-
-
-add_executable(ch02 Chapter02/calc.cpp)
-
-add_executable(ch03 Chapter03/hexdump.cpp)
-
-add_executable(ch04 Chapter04/tasks.cpp)
-
-add_executable(ch05 Chapter05/files.cpp)
-
-add_executable(ch06 Chapter06/search.cpp)
-
-add_executable(ch07 Chapter07/team_builder.cpp)
-
-add_executable(ch08 Chapter08/csv_parser.cpp)
-
-add_executable(ch09 Chapter09/email_parser.cpp)

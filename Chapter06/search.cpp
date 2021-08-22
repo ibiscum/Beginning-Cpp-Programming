@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <utility>
 #include <io.h>
 using namespace std;
 
@@ -15,20 +16,45 @@ class file_search
       intptr_t handle;
       // public here means public to the containing class
    public:
-      search_handle() : handle(-1) {}
-      search_handle(intptr_t p) : handle(p) {}
-      void operator=(intptr_t p) { handle = p; }
+      search_handle() : handle(-1)
+      {
+
+      }
+
+      explicit search_handle(intptr_t p) : handle(p)
+      {
+
+      }
+
+      void operator=(intptr_t p)
+      {
+      	handle = p;
+      }
+
       // do not allow copying
       search_handle(search_handle& h) = delete;
       void operator=(search_handle& h) = delete;
+
       // move semantics allowed
-      search_handle(search_handle&& h) { close(); handle = h.handle; }
-      void operator=(search_handle&& h) { close(); handle = h.handle; }
+      search_handle(search_handle&& h)  noexcept
+      {
+      	close();
+      	handle = h.handle;
+      }
+
+      void operator=(search_handle&& h)  noexcept
+      {
+      	close();
+      	handle = h.handle;
+      }
+
       // allow implicit conversion to a bool ro check that the
       // data member is valid
-      operator bool() const { return (handle != -1); }
-      // allow implict conversion to an intptr_t
-      operator intptr_t() const { return handle; }
+      explicit operator bool() const { return (handle != -1); }
+
+      // allow implicit conversion to an intptr_t
+      explicit operator intptr_t() const { return handle; }
+
       // allow callers to explictly release the handle
       void close() { if (handle != -1) _findclose(handle); handle = 0; }
       // allow automatic release of the handle
@@ -41,8 +67,8 @@ class file_search
    // these are the public interface of the class
 public:
    // we can create objects with a C or C++ string
-   file_search(const char* str) : search(str) {}
-   file_search(const string& str) : search(str) {}
+   explicit file_search(const char* str) : search(str) {}
+   explicit file_search(string  str) : search(std::move(str)) {}
    // get access to the search string
    const char* path() const { return search.c_str(); }
    // explictly close the search
