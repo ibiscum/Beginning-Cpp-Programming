@@ -8,7 +8,9 @@
 using namespace std;
 
 // need to use operating system calls to access file information
+#if defined(WIN32)
 #include <windows.h>
+#endif
 
 // this contains the size of a file, we could simply convert the
 // file size to a unsigned long long, but using this structure
@@ -28,7 +30,8 @@ ostream& operator<<(ostream& os, const file_size fs)
    unsigned long long ll = fs.low
       + ((unsigned long long)fs.high << 32);
    os << hex << ll;
-   os.setf(flags);
+   //os.setf(flags);
+   os.setf(static_cast<_Ios_Fmtflags>(flags));
    return os;
 }
 

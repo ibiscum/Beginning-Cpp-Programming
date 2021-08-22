@@ -1,5 +1,5 @@
 #include "utils.h"
-#include "time.h"
+#include "printtime.h"
 
 void PrintTime()
 {

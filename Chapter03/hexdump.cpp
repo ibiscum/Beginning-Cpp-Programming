@@ -2,18 +2,21 @@
 #include <sstream>
 #include <fstream>
 #include <iomanip>
+#include <ios>
 
 using namespace std;
 const int block_length = 16;
 
 void usage(const char* msg)
 {
-   cout << "filedump filename blocks" << endl;
-   cout << "filename (mandatory) is the name of the file to dump" << endl;
-   cout << "blocks (option) is the number of 16 byte blocks to dump" << endl;
-   if (nullptr == msg) return;
-   cout << endl << "Error! ";
-   cout << msg << endl;
+  cout << "filedump filename blocks" << endl;
+  cout << "filename (mandatory) is the name of the file to dump" << endl;
+  cout << "blocks (option) is the number of 16 byte blocks to dump" << endl;
+
+  if (nullptr == msg)
+    return;
+  cout << endl << "Error! ";
+  cout << msg << endl;
 }
 
 int read16(ifstream& stm)
@@ -52,7 +55,10 @@ int read16(ifstream& stm)
    cout << padding;
    cout << line << endl;
 
-   cout.setf(flags);
+
+   //cout.setf(flags);
+   cout.setf(static_cast<_Ios_Fmtflags>(flags));
+
    return line.length();
 }
 

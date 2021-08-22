@@ -1,6 +1,6 @@
 #include "utils.h"
 #include "name.h"
-#include "time.h"
+#include "printtime.h"
 
 int main()
 {
